@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webService.hnu.edu.cn" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webService.hnu.edu.cn" xmlns:intf="http://webService.hnu.edu.cn" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webService.hnu.edu.cn" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getUserInfoById">
+    <complexType/>
+   </element>
+   <element name="getUserInfoByIdResponse">
+    <complexType>
+     <sequence>
+      <element name="getUserInfoByIdReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getUserInfoByIdRequest">
+
+      <wsdl:part element="impl:getUserInfoById" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserInfoByIdResponse">
+
+      <wsdl:part element="impl:getUserInfoByIdResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DataBaseAccessService">
+
+      <wsdl:operation name="getUserInfoById">
+
+         <wsdl:input message="impl:getUserInfoByIdRequest" name="getUserInfoByIdRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getUserInfoByIdResponse" name="getUserInfoByIdResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DataBaseAccessServiceSoapBinding" type="impl:DataBaseAccessService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getUserInfoById">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserInfoByIdRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserInfoByIdResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DataBaseAccessServiceService">
+
+      <wsdl:port binding="impl:DataBaseAccessServiceSoapBinding" name="DataBaseAccessService">
+
+         <wsdlsoap:address location="http://localhost:8080/mvnwebservice/services/DataBaseAccessService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
