@@ -1,0 +1,29 @@
+两种webservice的访问方式：
+1.使用eclipse的插件将 java文件 通过(new=>other=>web service)生成wdsl文件的形式 建立web service。
+在同一个工程中，使用同一个服务器启动 web service 与 html页面,在不跨域的情况下，ajax通过post请求，
+访问web service。可惜，报错，错误如下：
+		 faultCode: {http://xml.apache.org/axis/}Client.NoSOAPAction
+		 faultSubcode: 
+		 faultString: no SOAPAction header!
+(试过强制添加soapaction这个头部信息，发现只能为空，如果不为空，出现 “前言出现不允许内容” 这个错误)
+
+2.把web service 使用axis2 service archiver 生成.aar文件，放置于axis2的工程下(由 war解压生成)，
+使用tomcat启动此 web service。另外，在浏览器单独打开写好的html页面，在跨域的情况下，ajax通过post请求访问
+web service：
+	a. dataType 设置成 xml,报错如下：
+		Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote 
+		resource at http://localhost:8080/axis2/services/dataaccess/getUserInfoById.
+		 (Reason: CORS header 'Access-Control-Allow-Origin' missing).
+	（出现同源问题，无法取得数据）
+	b. dataType 设置成 jsonp, 报错如下：
+		SyntaxError: expected expression, got '<'
+	(soap协议是以xml格式进行通信，自然不符合jsonp)
+
+///////////////////////////////////////////////////////////////////////
+3.另外一件奇怪的事情。之前您和我说过，前端使用get方式是不能访问的。
+但是，我直接使用浏览器，输入web service提供的url，却能顺利地得到 结果并输出。
+还有，第一次提交到 github上的 结果，也是能正常得到结果输出的。
+
+以上就是我对 这次作业的总结，请多指教。凭现在对 web service的理解，目前只能做到这儿了，还请见谅。
+如若您能发个实例给我学习，那就太感谢啦。
+谢谢。

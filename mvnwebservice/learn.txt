@@ -1,3 +1,32 @@
 使用浏览器访问启动的webservice：
 1 => localhost:8080/mvnwebservice/services/HelloService?method=sayHello
 2 => localhost:8080/mvnwebservice/services/HelloService?method=sayHelloToPerson&name=zql
+
+
+<script language="javascript">
+		//test function with get method. 
+		function requestByGet() {
+			//alert("in the function of RequestByGet");
+			var xmlHttp;
+			if(window.ActiveXObject){
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}else if(window.XMLHttpRequest){
+			   	xmlHttp = new XMLHttpRequest();
+			}
+			
+			//Webservice location. 
+			var URL="http://localhost:8080/axis2/services/dataaccess/getUserInfoById";
+			xmlHttp.open("GET",URL,false); 
+
+			xmlHttp.setRequestHeader("Content-Type","text/xml; charset=utf-8"); 
+			//alert("send the data");
+			xmlHttp.send(null); 
+
+			//OK 
+			var result = xmlHttp.status; 
+			if(result == 200) { 
+				document.write(xmlHttp.responseText); 
+			} 
+			xmlHttp = null; 
+		}
+	</script > 

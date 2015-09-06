@@ -34,12 +34,18 @@ public class PersonDAO {
 			while(rs.next()) {
 				person =  wrapResult(rs);
 			}
+			rs.close();
 			return person;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			//关闭数据库连接
-			JDBCConnection.closeConnectionToMysql();
+			try {
+				ps.close();
+				JDBCConnection.closeConnectionToMysql();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

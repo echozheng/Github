@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>access to the web service</title>
+	<meta charset="UTF-8">
+	<title>access web service</title>
+    <script src="js/jquery-1.7.1.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		function submitRequest() {
+	        $.ajax({
+	        	type : "post",
+	            contentType : "application/json;charset=utf-8",
+	            crossDomain : true,
+	            url : "http://localhost:8080/axis2/services/dataaccess/getUserInfoById",
+	            data : {"name" : "zql"},	//随意发送的数据
+	            //dataType : "xml",	//reponse 返回的数据类型
+	            dataType : "jsonp",	//reponse 返回的数据类型
+	            //jsonp: "jsonpCallback",
+	            error : function(response) {
+	            	alert("error");
+	            },
+	            success: function(data) { //回调函数，result，返回值
+	            	alert("success");
+	                /* var jsonData = eval('(' + response.d + ')');
+                    $("#showdata1").html(jsonData.id);
+                    $("#showdata2").html(jsonData.name);
+                    $("#showdata3").html(jsonData.idnum);
+                    $("#showdata4").html(jsonData.address); */
+	            }
+	        });
+		}
+		
+		function jsonpCallback(result) {
+			alert("in the function of jsonpCallback");
+		}
+	</script>
+	
 </head>
 <body>
-	<script language="javascript">
-		//test function with get method. 
-		function requestByGet() {
-			//alert("in the function of RequestByGet");
-			var xmlHttp;
-			if(window.ActiveXObject){
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}else if(window.XMLHttpRequest){
-			   	xmlHttp = new XMLHttpRequest();
-			}
-			
-			//Webservice location. 
-			var URL="http://localhost:8080/mvnwebservice/services/DataBaseAccessService?method=getUserInfoById"; 
-			xmlHttp.open("GET",URL,false); 
-
-			xmlHttp.setRequestHeader("Content-Type","text/xml; charset=utf-8"); 
-			//alert("send the data");
-			xmlHttp.send(null); 
-
-			//OK 
-			var result = xmlHttp.status; 
-			if(result == 200) { 
-				document.write(xmlHttp.responseText); 
-			} 
-			xmlHttp = null; 
-		}
-	</script> 
-	<input type="button" value="access_web_service" onClick="requestByGet()"> 
+	<input id="getdata" type="button" value="access_web_service" onclick="submitRequest()">
+	<p><input id="showdata1" type="text"></p>
+	<p><input id="showdata2" type="text"></p>
+	<p><input id="showdata3" type="text"></p>
+	<p><input id="showdata4" type="text"></p>
 </body>
 </html>

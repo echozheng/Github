@@ -20,6 +20,7 @@ public class JDBCConnection {
 	
 	//create the connection to database while return only one connection.
 	public static synchronized Connection getConnection(){
+		System.out.println("...............in the function of getConnection.........");
 		if(conn != null){
 			return conn;
 		}
@@ -39,6 +40,7 @@ public class JDBCConnection {
 	public static void closeConnectionToMysql(){
 		try {
 			conn.close();
+			conn = null;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
