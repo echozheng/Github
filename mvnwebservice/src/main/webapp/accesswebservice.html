@@ -9,15 +9,15 @@
 		function submitRequest() {
 	        $.ajax({
 	        	type : "post",
-	            crossDomain : true,
+	            //crossDomain : true,
 	            contentType : "application/xml;charset=utf-8",
 	            url : "http://localhost:8080/axis2/services/getdata/getUserInfoById",
 	            dataType : "xml",
 	            error : function(response) {
 	            	alert("error");
 	            },
-	            //success函数的第一个参数，是服务器返回的数据
 	            success: function(xmldata) {
+	            	alert("success");
 	            	//先转换成 jquery对象。
 	            	var jqueryObj = $(xmldata);
 	            	var data = jqueryObj.children();

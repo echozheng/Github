@@ -2,31 +2,38 @@
 1 => localhost:8080/mvnwebservice/services/HelloService?method=sayHello
 2 => localhost:8080/mvnwebservice/services/HelloService?method=sayHelloToPerson&name=zql
 
-
-<script language="javascript">
-		//test function with get method. 
-		function requestByGet() {
-			//alert("in the function of RequestByGet");
-			var xmlHttp;
-			if(window.ActiveXObject){
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}else if(window.XMLHttpRequest){
-			   	xmlHttp = new XMLHttpRequest();
-			}
-			
-			//Webservice location. 
-			var URL="http://localhost:8080/axis2/services/dataaccess/getUserInfoById";
-			xmlHttp.open("GET",URL,false); 
-
-			xmlHttp.setRequestHeader("Content-Type","text/xml; charset=utf-8"); 
-			//alert("send the data");
-			xmlHttp.send(null); 
-
-			//OK 
-			var result = xmlHttp.status; 
-			if(result == 200) { 
-				document.write(xmlHttp.responseText); 
-			} 
-			xmlHttp = null; 
+<script type="text/javascript">
+		function submitRequest() {
+	        $.ajax({
+	        	type : "post",
+	            crossDomain : true,
+	            //contentType : "application/json;charset=utf-8",
+	            contentType : "application/xml;charset=utf-8",
+	            url : "http://localhost:8080/axis2/services/getdata/getUserInfoById",
+	            //url : "http://localhost:8080/axis2/services/getdata?wsdl/getUserInfoById",
+	            //dataType : "json",
+	            dataType : "xml",
+	            //一定注意格式啊，呀呀呀。
+	            //data : "{'name' : 'zql'}",
+	            //data : "{ }",
+	            error : function(response) {
+	            	alert("error");
+	            },
+	            //success函数的第一个参数，是服务器返回的数据
+	            success: function(xmldata) {
+	            	alert("success");
+	            	//先转换成 jquery对象。
+	            	/* var jqueryObj = $(xmldata);
+	            	var data = jqueryObj.children();
+	            	var dataText = data.text(); */
+	            	//{"id":1,"name":"zql","idNum":"35032119901202****","address":"changsha city,hunan province,China"}
+	            	//转换成json数据
+	            	/* var jsonData = eval('('+dataText+')');
+                    $("#showdata1").text("id = "+jsonData.id);
+                    $("#showdata2").text("name = "+jsonData.name);
+                    $("#showdata3").text("idNum = "+jsonData.idNum);
+                    $("#showdata4").text("address = "+jsonData.address); */
+	            }
+	        });
 		}
-	</script > 
+	</script>
