@@ -19,9 +19,9 @@ public class DataBaseAccessService {
 		return userInfoInJson;
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		DataBaseAccessService dataBaseAccessService = new DataBaseAccessService();
 		dataBaseAccessService.getUserInfoById();
 		dataBaseAccessService.getUserInfoById();
-	}*/
+	}
 }

@@ -8,39 +8,37 @@
 	<script type="text/javascript">
 		function submitRequest() {
 	        $.ajax({
-	        	type : "post",
-	            contentType : "application/json;charset=utf-8",
+	        	type : "get",
 	            crossDomain : true,
-	            url : "http://localhost:8080/axis2/services/dataaccess/getUserInfoById",
-	            data : {"name" : "zql"},	//随意发送的数据
-	            //dataType : "xml",	//reponse 返回的数据类型
-	            dataType : "jsonp",	//reponse 返回的数据类型
-	            //jsonp: "jsonpCallback",
+	            url : "http://localhost:8080/axis2/services/getdata/getUserInfoById",
+	            dataType : "xml",
 	            error : function(response) {
 	            	alert("error");
 	            },
-	            success: function(data) { //回调函数，result，返回值
-	            	alert("success");
-	                /* var jsonData = eval('(' + response.d + ')');
-                    $("#showdata1").html(jsonData.id);
-                    $("#showdata2").html(jsonData.name);
-                    $("#showdata3").html(jsonData.idnum);
-                    $("#showdata4").html(jsonData.address); */
+	            //success函数的第一个参数，是服务器返回的数据
+	            success: function(xmldata) {
+	            	//先转换成 jquery对象。
+	            	var jqueryObj = $(xmldata);
+	            	var data = jqueryObj.children();
+	            	var dataText = data.text();
+	            	//{"id":1,"name":"zql","idNum":"35032119901202****","address":"changsha city,hunan province,China"}
+	            	//转换成json数据
+	            	var jsonData = eval('('+dataText+')');
+                    $("#showdata1").text("id = "+jsonData.id);
+                    $("#showdata2").text("name = "+jsonData.name);
+                    $("#showdata3").text("idNum = "+jsonData.idNum);
+                    $("#showdata4").text("address = "+jsonData.address);
 	            }
 	        });
-		}
-		
-		function jsonpCallback(result) {
-			alert("in the function of jsonpCallback");
 		}
 	</script>
 	
 </head>
 <body>
 	<input id="getdata" type="button" value="access_web_service" onclick="submitRequest()">
-	<p><input id="showdata1" type="text"></p>
-	<p><input id="showdata2" type="text"></p>
-	<p><input id="showdata3" type="text"></p>
-	<p><input id="showdata4" type="text"></p>
+	<p id="showdata1"></p>
+	<p id="showdata2"></p>
+	<p id="showdata3"></p>
+	<p id="showdata4"></p>
 </body>
 </html>
