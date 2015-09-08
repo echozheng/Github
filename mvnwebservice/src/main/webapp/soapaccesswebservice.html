@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>access web service</title>
+    <script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+    <!-- <script src="js/jquery.soap.js" type="text/javascript"></script> -->
+    <script src="js/jquery.soap1.4.2.js" type="text/javascript"></script>
+    <script src="js/xml2json.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		function submitRequest() {
+			$.soap({
+	            url : "http://localhost:8080/axis2/services/getdata/",
+	            method : "getUserInfoById",
+	            appendMethodToURL : true ,
+    			data : {name : "zql"},
+	            HTTPHeaders: {
+	            	"dataType"	: "xml",
+	                "crossDomain" : true
+	            },
+	            error : function(SOAPResponse) {
+	            	alert("error");
+	            },
+	            SOAPACtion : "getMessage",
+	            statusCode : {
+	            	404 : function() {
+	            		alert("404 not found");
+	            	},
+	            	200 : function() {
+	            		alert("200 ok");
+	            	}
+	            },
+	            success : function(SOAPResponse) {
+	            	alert("success");
+	            }
+			});
+		}
+	</script>
+	
+</head>
+<body>
+	<input id="getdata" type="button" value="access_web_service" onclick="submitRequest()">
+	<p id="showdata1"></p>
+	<p id="showdata2"></p>
+	<p id="showdata3"></p>
+	<p id="showdata4"></p>
+</body>
+</html>
